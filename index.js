@@ -25,7 +25,7 @@ const corsoptions={
     origin:'https://frontendpro-e3ja.onrender.com',
     credentials:true,
     methods: ['GET', 'POST'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
+  allowedHeaders: ['Content-Type'],
    
 }
 app.use(cors(corsoptions));
