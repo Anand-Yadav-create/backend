@@ -24,7 +24,7 @@ app.use(express.urlencoded({extended:true}));
 const corsoptions={
     origin:'https://frontendpro-e3ja.onrender.com',
     credentials:true,
-    methods: ['GET', 'POST'],
+    methods: ['GET', 'POST','PUT'],
   allowedHeaders: ['Content-Type'],
    
 }
