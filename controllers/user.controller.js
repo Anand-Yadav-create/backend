@@ -16,8 +16,18 @@ export const register= async (req,res)=>{
             });
         };
         const file=req.file;
-        const fileUri=getDataUri(file);
-        const cloudResponse= await cloudinary.uploader.upload(fileUri.content);
+
+
+         let fileUri=null;
+        let cloudResponse=null;
+        if(file){
+         fileUri=getDataUri(file);
+          cloudResponse=await cloudinary.uploader.upload(fileUri.content);
+        
+        }
+
+        // const fileUri=getDataUri(file);
+        // const cloudResponse= await cloudinary.uploader.upload(fileUri.content);
 
         const user=await User.findOne({email});
         if(user){
@@ -28,7 +38,7 @@ export const register= async (req,res)=>{
         }
 
         const hashedPassword = await bcrypt.hash(password,10);
-
+        const profilePhot = cloudResponse?.secure_url;
         await User.create({
             fullname,
             email,
@@ -36,7 +46,7 @@ export const register= async (req,res)=>{
             password:hashedPassword,
             role,
             profile:{
-                profilePhoto:cloudResponse.secure_url,
+                profilePhoto:profilePhot,
             }
         });
 
