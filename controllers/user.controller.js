@@ -203,7 +203,7 @@ export const updateProfile = async(req,res)=>{
         
     }
 }
-<<<<<<< HEAD
+
 
 export const googleLogin=async(req,res)=>{
     const { token: firebaseToken } = req.body;
@@ -314,5 +314,4 @@ export const googleLogin=async(req,res)=>{
         
     }
 }
-=======
->>>>>>> eb64641b4cc6594da5262bac1fba8608aa2d69c4
+
