@@ -22,9 +22,14 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 const corsoptions={
+<<<<<<< HEAD
     origin:"https://engineers-hub-1.onrender.com",
+=======
+    origin:'https://frontendpro-e3ja.onrender.com',
+>>>>>>> eb64641b4cc6594da5262bac1fba8608aa2d69c4
     credentials:true,
-    
+    methods: ['GET', 'POST','PUT'],
+  allowedHeaders: ['Content-Type'],
    
 }
 app.use(cors(corsoptions));

@@ -19,8 +19,18 @@ export const register= async (req,res)=>{
             });
         };
         const file=req.file;
-        const fileUri=getDataUri(file);
-        const cloudResponse= await cloudinary.uploader.upload(fileUri.content);
+
+
+         let fileUri=null;
+        let cloudResponse=null;
+        if(file){
+         fileUri=getDataUri(file);
+          cloudResponse=await cloudinary.uploader.upload(fileUri.content);
+        
+        }
+
+        // const fileUri=getDataUri(file);
+        // const cloudResponse= await cloudinary.uploader.upload(fileUri.content);
 
         const user=await User.findOne({email});
         if(user){
@@ -31,7 +41,7 @@ export const register= async (req,res)=>{
         }
 
         const hashedPassword = await bcrypt.hash(password,10);
-
+        const profilePhot = cloudResponse?.secure_url;
         await User.create({
             fullname,
             email,
@@ -39,7 +49,7 @@ export const register= async (req,res)=>{
             password:hashedPassword,
             role,
             profile:{
-                profilePhoto:cloudResponse.secure_url,
+                profilePhoto:profilePhot,
             }
         });
 
@@ -97,7 +107,7 @@ export const login=async (req,res)=>{
             role:user.role,
             profile:user.profile
         }
-        return res.status(200).cookie("token",token,{maxAge:1*24*60*60*1000,httpsOnly:true,sameSite:'strict'}).json({
+        return res.status(200).cookie("token",token,{maxAge:1*24*60*60*1000,httpsOnly:true,sameSite:"none",secure:true}).json({
             message:`Welcome back ${user.fullname}`,
             user,
             success:true
@@ -110,7 +120,7 @@ export const login=async (req,res)=>{
 
 export const logout=async(req,res)=>{
     try {
-        return res.status(200).cookie("token","",{maxAge:0}).json({
+        return res.status(200).cookie("token","",{maxAge:0,sameSite:'none',secure:true}).json({
             message:"Logout Successfully",
             success:true
 
@@ -193,6 +203,7 @@ export const updateProfile = async(req,res)=>{
         
     }
 }
+<<<<<<< HEAD
 
 export const googleLogin=async(req,res)=>{
     const { token: firebaseToken } = req.body;
@@ -303,3 +314,5 @@ export const googleLogin=async(req,res)=>{
         
     }
 }
+=======
+>>>>>>> eb64641b4cc6594da5262bac1fba8608aa2d69c4
