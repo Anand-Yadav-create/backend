@@ -22,7 +22,7 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 const corsoptions={
-    origin:"https://engineers-hub-1.onrender.com",
+    
     origin:'https://frontendpro-e3ja.onrender.com',
 
     credentials:true,
@@ -41,10 +41,12 @@ app.use("/api/v1/company",companyRoute);
 app.use("/api/v1/job",jobRoute);
 app.use("/api/v1/application",applicationRoute);
 
-app.use(express.static(path.join(_dirname,"/frontend/build")));
-app.get('*',(_,res)=>{
-    res.sendFile(path.resolve(_dirname,"frontend","build","index.html"));
-})
+// app.use(express.static(path.join(_dirname,"/frontend/build")));
+// app.get('*',(_,res)=>{
+//     res.sendFile(path.resolve(_dirname,"frontend","build","index.html"));
+// })
+
+
 
 app.get('/', (req, res) => {
     res.send('Hello, World!');
