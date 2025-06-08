@@ -209,9 +209,9 @@ export const updateProfile = async(req,res)=>{
 
 export const googleLogin=async(req,res)=>{
     const { token: firebaseToken } = req.body;
-    console.log("Received Firebase token:", firebaseToken);
+    
     try {
-
+         
 
         const decoded = await admin.auth().verifyIdToken(firebaseToken);
 
@@ -271,6 +271,7 @@ export const googleLogin=async(req,res)=>{
             fullname:name,
             email,
             phoneNumber:9999999999,
+            password:"oauthgooglelogin",
             
             role:"Student",
             profile:{
@@ -290,6 +291,10 @@ export const googleLogin=async(req,res)=>{
     );
 
 
+    const userObj = user.toObject();
+    delete userObj.password;
+
+
 
      // Send cookie
     // return res
@@ -304,7 +309,7 @@ export const googleLogin=async(req,res)=>{
 
           return res.status(200).cookie("token",jwtToken,{maxAge:1*24*60*60*1000,httpsOnly:true,sameSite:"none",secure:true}).json({
             message:`Welcome back ${user.fullname}`,
-            user,
+            userObj,
             success:true
         })
 
