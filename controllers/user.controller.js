@@ -209,6 +209,7 @@ export const updateProfile = async(req,res)=>{
 
 export const googleLogin=async(req,res)=>{
     const { token: firebaseToken } = req.body;
+    console.log("Received Firebase token:", firebaseToken);
     try {
 
 
@@ -309,6 +310,8 @@ export const googleLogin=async(req,res)=>{
 
         
     } catch (error) {
+        console.error("Firebase verifyIdToken error:", error);
+
 
         console.error("Google login error:", error.message);
     res.status(401).json({ success: false, message: "Invalid Google token" });
