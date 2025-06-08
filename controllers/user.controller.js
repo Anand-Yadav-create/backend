@@ -263,16 +263,15 @@ export const googleLogin=async(req,res)=>{
     // Find or create user in your DB
     let user = await User.findOne({ email });
     if (!user) {
-        const file=picture;
-        const fileUri=getDataUri(file);
-        const cloudResponse= await cloudinary.uploader.upload(fileUri.content);
+        
+        const cloudResponse= await cloudinary.uploader.upload(picture);
 
         user=await User.create({
             fullname:name,
             email,
             phoneNumber:9999999999,
-           
-            role:student,
+            
+            role:"Student",
             profile:{
                 profilePhoto:cloudResponse.secure_url,
             }
@@ -311,7 +310,7 @@ export const googleLogin=async(req,res)=>{
         
     } catch (error) {
 
-        console.error("Google login error:", err.message);
+        console.error("Google login error:", error.message);
     res.status(401).json({ success: false, message: "Invalid Google token" });
         
     }
