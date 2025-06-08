@@ -64,6 +64,8 @@ export const register= async (req,res)=>{
 }
 
 export const login=async (req,res)=>{
+
+   
     try{
         const {email,password,role}=req.body;
         if( !email ||!password ||!role){
@@ -97,7 +99,7 @@ export const login=async (req,res)=>{
         const tokenData={
             userId:user._id
         }
-        const token= await jwt.sign(tokenData,process.env.SECRET_KEY,{expiresIn:'1d'});
+        const token= await jwt.sign(tokenData,process.env.JWT_SECRET,{expiresIn:'1d'});
 
         user={
             _id:user._id,
@@ -283,7 +285,7 @@ export const googleLogin=async(req,res)=>{
      // Create your own JWT
     const jwtToken = jwt.sign(
       { id: user._id},
-      process.env.SECRET_KEY,{expiresIn:'1d'}
+      process.env.JWT_SECRET,{expiresIn:'1d'}
       
     );
 
