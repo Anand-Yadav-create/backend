@@ -38,7 +38,7 @@ const corsOptions = {
 };
 
 app.options('*', cors(corsOptions));
-app.use(cors(corsoptions));
+app.use(cors(corsOptions));
 
 
 
