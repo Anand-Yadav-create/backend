@@ -21,15 +21,23 @@ app.use(cookieParser());
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
-const corsoptions={
+// const corsoptions={
     
-    origin:'https://frontendpro-e3ja.onrender.com',
+//     origin:'https://frontendpro-e3ja.onrender.com',
 
-    credentials:true,
-    methods: ['GET', 'POST','PUT'],
-  allowedHeaders: ['Content-Type'],
+//     credentials:true,
+//     methods: ['GET', 'POST','PUT'],
+//   allowedHeaders: ['Content-Type'],
    
-}
+// }
+const corsOptions = {
+  origin: 'https://frontendpro-e3ja.onrender.com',
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+};
+
+app.options('*', cors(corsOptions));
 app.use(cors(corsoptions));
 
 
