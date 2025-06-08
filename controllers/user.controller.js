@@ -291,8 +291,16 @@ export const googleLogin=async(req,res)=>{
     );
 
 
-    const userObj = user.toObject();
-    delete userObj.password;
+    
+
+     user={
+            _id:user._id,
+            fullname:user.fullname,
+            email:user.email,
+            phoneNumber:user.phoneNumber,
+            role:user.role,
+            profile:user.profile
+        }
 
 
 
@@ -309,7 +317,7 @@ export const googleLogin=async(req,res)=>{
 
           return res.status(200).cookie("token",jwtToken,{maxAge:1*24*60*60*1000,httpsOnly:true,sameSite:"none",secure:true}).json({
             message:`Welcome back ${user.fullname}`,
-            userObj,
+            user,
             success:true
         })
 
