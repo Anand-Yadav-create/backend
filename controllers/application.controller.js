@@ -45,6 +45,7 @@ export const applyjob = async(req,res) =>{
             success:true
         })
     } catch (error) {
+        console.log("hel");
         console.log(error);
         
     }
