@@ -1,4 +1,9 @@
 import { Job } from "../models/job.model.js";
+import dotenv from "dotenv";
+import axios from 'axios'; // ✅ ES Module
+
+
+dotenv.config({});
 
 //job create by admin
 export const postJob = async(req,res)=>{
@@ -119,3 +124,31 @@ export const getAdminJobs = async (req,res)=>{
     }
 }
 
+
+
+
+
+export const browsejobs= async (req, res) => {
+  const query = req.query.q || 'developer';
+  const page = req.query.page || '1';
+  
+
+  try {
+    const response = await axios.get('https://jsearch.p.rapidapi.com/search', {
+      params: {
+        query: query,
+        page: page,
+        num_pages: '1'
+      },
+      headers: {
+        'X-RapidAPI-Key': process.env.RAPID_API_KEY,
+        'X-RapidAPI-Host': 'jsearch.p.rapidapi.com'
+      }
+    });
+
+    res.json(response.data.data); // send list of jobs
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ error: 'Failed to fetch external jobs' });
+  }
+};
