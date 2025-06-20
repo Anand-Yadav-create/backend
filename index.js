@@ -22,17 +22,9 @@ app.use(cookieParser());
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
-// const corsoptions={
-    
-//     origin:'https://frontendpro-e3ja.onrender.com',
 
-//     credentials:true,
-//     methods: ['GET', 'POST','PUT'],
-//   allowedHeaders: ['Content-Type'],
-   
-// }
 const corsOptions = {
-    origin: 'https://frontendpro-e3ja.onrender.com',
+   origin: 'https://frontendpro-e3ja.onrender.com',
   //  origin:"http://localhost:3000",
   // origin:"*",
   credentials: true,
@@ -52,10 +44,6 @@ app.use("/api/v1/company",companyRoute);
 app.use("/api/v1/job",jobRoute);
 app.use("/api/v1/application",applicationRoute);
 
-// app.use(express.static(path.join(_dirname,"/frontend/build")));
-// app.get('*',(_,res)=>{
-//     res.sendFile(path.resolve(_dirname,"frontend","build","index.html"));
-// })
 
 
 
