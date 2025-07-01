@@ -24,7 +24,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
 const corsOptions = {
-  origin: 'https://frontendpro-e3ja.onrender.com',
+   origin: 'https://frontendpro-e3ja.onrender.com',
   //  origin:"http://localhost:3000",
   // origin:"*",
   credentials: true,
