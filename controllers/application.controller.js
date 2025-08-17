@@ -1,5 +1,7 @@
 import { Application } from "../models/application.model.js";
 import { Job } from "../models/job.model.js";
+import { sendMail} from "../utils/mailer.js";
+import { User } from "../models/user.model.js";
 
 export const applyjob = async(req,res) =>{
     try {
@@ -40,6 +42,14 @@ export const applyjob = async(req,res) =>{
         job.applications.push(newApplication._id);
 
         await job.save();
+
+        const user=await User.findById(userId);
+        await sendMail(
+      user.email,
+      "Job Application Submitted",
+      `<h2>Hello ${user.name},</h2>
+       <p>Your application for Job ID: ${jobId} has been submitted successfully!</p>`
+    );
         return res.status(201).json({
             message:"Job aPPlied successfully",
             success:true
